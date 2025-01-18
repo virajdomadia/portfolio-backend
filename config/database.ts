@@ -12,9 +12,11 @@ export default ({ env }) => {
         database: env('DATABASE_NAME', 'strapi'),
         user: env('DATABASE_USERNAME', 'strapi'),
         password: env('DATABASE_PASSWORD', 'strapi'),
-        ssl: env.bool('DATABASE_SSL', true) && { // Enable SSL if DATABASE_SSL is true
-          rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
-        },
+        ssl: env.bool('DATABASE_SSL', false)
+          ? {
+            rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', false), // Handle self-signed cert
+          }
+          : false,
         schema: env('DATABASE_SCHEMA', 'public'), // Default schema
       },
       pool: {
@@ -30,8 +32,9 @@ export default ({ env }) => {
     },
   };
 
+  // Ensure the selected client is supported
   if (!connections[client]) {
-    throw new Error(`Unsupported database client: ${client}`);
+    throw new Error(`Unsupported database client: ${client}. Only PostgreSQL is supported.`);
   }
 
   return {
