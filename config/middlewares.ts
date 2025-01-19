@@ -18,7 +18,7 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['http://localhost:5173'], // Replace with your React app's URL
+      origin: ['https://virajdomadia.vercel.app/'], // Replace with your React app's URL
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
     },
