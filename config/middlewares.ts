@@ -18,9 +18,10 @@ export default [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['https://virajdomadia.vercel.app/'], // Replace with your React app's URL
+      origin: ['https://virajdomadia.vercel.app'], // Ensure no trailing slash
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
+      credentials: true, // Optional: Enable if you're using cookies or auth
     },
   },
   'strapi::poweredBy',
